@@ -14,23 +14,22 @@ public class TemplateVerticle extends AbstractVerticle {
     public void start(Promise<Void> startPromise) throws Exception {
         router = Router.router(vertx);
         thymeleafTemplateEngine = ThymeleafTemplateEngine.create(vertx);
-        router.route("/").handler(req -> {
+        router.route("/exe").handler(req -> {
             var obj = new JsonObject();
+
             obj.put("name", "<div><h1>Hello World from backend</h1></div>");
             obj.put("another", "<form >userId:<input type=text><input type=submit></form>");
             thymeleafTemplateEngine.render(obj,
                     "Templates/index.html",
                     bufferAsyncResult -> {
-                        if (bufferAsyncResult.succeeded()) {
-                            req.response()
-                                    .putHeader("content-type", "text/html")
-                                    .end(bufferAsyncResult.result());
-                        }
+                        req.response()
+                                .putHeader("content-type", "text/html")
+                                .end(bufferAsyncResult.result());
                     });
 
         });
 
-        vertx.createHttpServer().requestHandler(router).listen(8888, http -> {
+        vertx.createHttpServer().requestHandler(router).listen(8889, http -> {
             if (http.succeeded()) {
                 startPromise.complete();
                 System.out.println("HTTP server started on port 8888");

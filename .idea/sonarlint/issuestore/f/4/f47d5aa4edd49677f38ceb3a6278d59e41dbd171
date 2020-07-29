@@ -1,5 +1,5 @@
 
-Z	java:S106"9Replace this use of System.out or System.err by a logger.(›Ù’»ýÿÿÿÿ8­ÿÇý¸.
 N
 java:S1602
 ",Remove useless curly braces around statement(ú—½¯þÿÿÿÿ8­ÿÇý¸.
+Z	java:S106"9Replace this use of System.out or System.err by a logger.(›Ù’»ýÿÿÿÿ8­ÿÇý¸.
