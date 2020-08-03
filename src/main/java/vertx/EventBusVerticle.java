@@ -1,6 +1,7 @@
 package vertx;
 
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.DeploymentOptions;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
 
@@ -10,6 +11,8 @@ public class EventBusVerticle extends AbstractVerticle {
     @Override
 
     public void start() {
+        DeploymentOptions opts = new DeploymentOptions().setWorker(true).setInstances(8);
+        vertx.deployVerticle("vertx.HelloVerticle",opts);
         vertx.deployVerticle(new HelloVerticle());
         router.get("/exe/hello").handler(this::helloVertx);
         router.get("/exe/name").handler(this::helloName);

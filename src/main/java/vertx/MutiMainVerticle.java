@@ -14,6 +14,8 @@ public class MutiMainVerticle extends AbstractVerticle {
 
     Router router = Router.router(vertx);
     ThymeleafTemplateEngine thymeleafTemplateEngine = ThymeleafTemplateEngine.create(vertx);
+
+
     @Override
 
     public void start() {
