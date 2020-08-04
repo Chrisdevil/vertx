@@ -12,13 +12,15 @@ import java.time.Year;
 @Slf4j
 public class MutiMainVerticle extends AbstractVerticle {
 
-    Router router = Router.router(vertx);
-    ThymeleafTemplateEngine thymeleafTemplateEngine = ThymeleafTemplateEngine.create(vertx);
+    Router router;
+    ThymeleafTemplateEngine thymeleafTemplateEngine;
 
 
     @Override
 
     public void start() {
+        router = Router.router(vertx);
+        thymeleafTemplateEngine=ThymeleafTemplateEngine.create(vertx);
 
         router.get("/exe/hello").handler(this::helloVertx);
         router.get("/exe/name").handler(this::helloName);
@@ -29,14 +31,22 @@ public class MutiMainVerticle extends AbstractVerticle {
     void helloVertx(RoutingContext ctx) {
         var obj = new JsonObject();
         obj.put("name","where is jekyll?");
+        System.out.println(ctx.getAcceptableContentType());
+        System.out.println(ctx.getBodyAsString());
         thymeleafTemplateEngine.render(obj,"Templates/index.html",bufferAsyncResult -> {
-            ctx.request().response().end(bufferAsyncResult.result());
+            ctx.response().putHeader("content-type","text/html").end(bufferAsyncResult.result());
         });
         //ctx.request().response().end("hello world");
 
     }
 
     void helloName(RoutingContext ctx) {
-        ctx.request().response().end("hello name");
+        var obj = new JsonObject();
+        obj.put("name","where is jekyll?");
+        System.out.println(ctx.getAcceptableContentType());
+        System.out.println(ctx.getBodyAsString());
+        thymeleafTemplateEngine.render(obj,"Templates/index.html",bufferAsyncResult -> {
+            ctx.response().putHeader("content-type","text/html").end(bufferAsyncResult.result());
+        });
     }
 }
