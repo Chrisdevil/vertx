@@ -21,11 +21,9 @@ public class MutiMainVerticle extends AbstractVerticle {
     public void start() {
         router = Router.router(vertx);
         thymeleafTemplateEngine=ThymeleafTemplateEngine.create(vertx);
-
         router.get("/exe/hello").handler(this::helloVertx);
         router.get("/exe/name").handler(this::helloName);
         vertx.createHttpServer().requestHandler(router).listen(8888);
-
     }
 
     void helloVertx(RoutingContext ctx) {
